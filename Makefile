@@ -5,7 +5,8 @@ LIBFTPRINTF		= libftprintf.a
 LIBFTPRINTF_DIR	= libftprintf
 LIBFTPRINTF_LIB	= -L libftprintf libftprintf/libftprintf.a
 LIBFTPRINTF_INC	= -I libftprintf/includes
-SRCNAME			= 
+
+SRCNAME			= ./sigcom/sigcom
 
 SRCNAME_BONUS	= 
 
