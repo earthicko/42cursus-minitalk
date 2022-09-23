@@ -41,7 +41,10 @@ void	sigcom_init(void)
 
 	usr_act.sa_sigaction = sigcom_action_usr1;
 	sigemptyset(&usr_act.sa_mask);
+	sigaddset(&usr_act.sa_mask, SIGUSR1);
+	sigaddset(&usr_act.sa_mask, SIGUSR2);
 	usr_act.sa_flags = SA_SIGINFO;
+	usr_act.sa_flags |= SA_NODEFER;
 	sigaction(SIGUSR1, &usr_act, NULL);
 	sigaction(SIGUSR2, &usr_act, NULL);
 	g_sigcom.buffer = 0;
