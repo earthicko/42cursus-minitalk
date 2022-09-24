@@ -6,10 +6,11 @@ LIBFTPRINTF_DIR	= libftprintf
 LIBFTPRINTF_LIB	= -L libftprintf libftprintf/libftprintf.a
 LIBFTPRINTF_INC	= -I libftprintf/includes
 
+SRCDIR			= ./src/
 SRCNAME			= \
-				./sigcom/sigcom \
-				./sigcom/sigcom_send
+				$(SRCDIR)sigcom/sigcom
 
+SRCDIR_BONUS	= ./src_bonus/
 SRCNAME_BONUS	= 
 
 SRC				= $(addsuffix .c, $(SRCNAME))
@@ -23,12 +24,13 @@ CFLAGS			= -Wall -Wextra -Werror
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) $(LIBFTPRINTF) server.o client.o
-	@$(CC) $(CFLAGS) $(INC) $(OBJ) server.o -o server $(LIBFTPRINTF_LIB)
-	@$(CC) $(CFLAGS) $(INC) $(OBJ) client.o -o client $(LIBFTPRINTF_LIB)
+$(NAME) : $(OBJ) $(LIBFTPRINTF) $(SRCDIR)server.o $(SRCDIR)client.o
+	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR)server.o -o server $(LIBFTPRINTF_LIB)
+	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR)client.o -o client $(LIBFTPRINTF_LIB)
 
-bonus : $(OBJ_BONUS) $(LIBFTPRINTF)
-	@$(CC) $(CFLAGS) $(INC) $(OBJ_BONUS) -o $(BONUS) $(LIBFTPRINTF_LIB)
+bonus : $(OBJ_BONUS) $(LIBFTPRINTF) $(SRCDIR_BONUS)server.o $(SRCDIR_BONUS)client.o
+	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR_BONUS)server.o -o server $(LIBFTPRINTF_LIB)
+	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR_BONUS)client.o -o client $(LIBFTPRINTF_LIB)
 
 $(LIBFTPRINTF) :
 	make -C $(LIBFTPRINTF_DIR) $(LIBFTPRINTF)
@@ -37,7 +39,8 @@ $(LIBFTPRINTF) :
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean :
-	$(RM) $(OBJ) server.o client.o $(OBJ_BONUS)
+	$(RM) $(OBJ) $(SRCDIR)server.o $(SRCDIR)client.o
+	$(RM) $(OBJ_BONUS) $(SRCDIR_BONUS)server.o $(SRCDIR_BONUS)client.o
 	make clean -C $(LIBFTPRINTF_DIR)
 
 fclean : clean
