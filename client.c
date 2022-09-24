@@ -20,10 +20,14 @@ int	main(int argc, char **argv)
 	// 	cursor++;
 	// }
 	int i = 0;
+	char c = 'a' - 1;
 	while (1)
 	{
+		c++;
 		ft_printf("%d\n", i++);
-		sigcom_send('a', pid);
+		sigcom_send(c, pid);
+		if (c == 'z')
+			c = 'a' - 1;
 	}
 	return (0);
 }
