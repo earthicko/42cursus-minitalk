@@ -36,7 +36,7 @@ void	sigcom_receive_action(int sig, siginfo_t *info, void *uap)
 		write(STDOUT_FILENO, &g_sigcom.buffer, 1);
 		g_sigcom.mask = 1;
 	}
-	usleep(DELAY_USECONDS);
+	usleep(DELAY_USEC);
 	kill(info->si_pid, SIGUSR1);
 }
 
@@ -75,8 +75,8 @@ void	sigcom_send(char byte, pid_t pid)
 			ft_printf("Error while sending signal, abort\n");
 			break ;
 		}
-		if (usleep(TIMEOUT_USECONDS) == 0)
-			ft_printf("Timeout (%dus) exceeded, retrying\n", TIMEOUT_USECONDS);
+		if (usleep(TIMEOUT_USEC) == 0)
+			ft_printf("Timeout (%dus) exceeded, retrying\n", TIMEOUT_USEC);
 		else
 			mask = mask << 1;
 	}
