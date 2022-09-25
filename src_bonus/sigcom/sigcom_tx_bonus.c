@@ -1,36 +1,61 @@
-#include <signal.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sigcom_tx_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donghyle <donghyle@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/26 00:48:54 by donghyle          #+#    #+#             */
+/*   Updated: 2022/09/26 00:48:56 by donghyle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include "sigcom_bonus.h"
 #include "libft.h"
 
-void	sigcom_null_action(int sig)
+static int	try_connecting(pid_t peer_pid, int n_retry)
 {
-	(void) sig;
+	int	error;
+
+	error = kill(peer_pid, SIGUSR1);
+	if (error)
+	{
+		ft_printf("%s >>> Error while sending signal\n", __func__);
+		return (-1);
+	}
+	if (usleep(TIMEOUT_TX_USEC))
+		return (0);
+	if (n_retry > MAX_RETRY)
+	{
+		ft_printf(MSG_MAX_RETRY_EXCEEDED, __func__, MAX_RETRY);
+		sigcom_setstate_ready();
+		return (-1);
+	}
+	return (1);
 }
 
-void	sigcom_send_byte(char byte, pid_t pid)
+void	sigcom_setstate_tx(pid_t peer_pid, char *str)
 {
-	char	mask;
-	int		error;
+	int	error;
+	int	n_retry;
 
-	signal(SIGUSR1, sigcom_null_action);
-	signal(SIGUSR2, sigcom_null_action);
-	mask = 1;
-	while (mask != 0)
+	g_sigcom.peer_pid = peer_pid;
+	g_sigcom.state = STATE_TX;
+	ft_printf("%s >>> Trying to connect to pid %d\n", __func__, peer_pid);
+	n_retry = 0;
+	while (1)
 	{
-		if (byte & mask)
-			error = kill(pid, SIGUSR2);
-		else
-			error = kill(pid, SIGUSR1);
+		error = try_connecting(peer_pid, n_retry);
 		if (error < 0)
-		{
-			ft_printf("Error while sending signal, abort\n");
+			return ;
+		if (error == 0)
 			break ;
-		}
-		if (usleep(TIMEOUT_TX_USECONDS) == 0)
-			ft_printf("Timeout (%dus) exceeded, retrying\n", TIMEOUT_TX_USECONDS);
-		else
-			mask = mask << 1;
+		ft_printf(MSG_TIMEOUT_EXCEEDED, __func__, TIMEOUT_TX_USEC);
+		ft_printf(", retrying\n");
+		n_retry++;
 	}
-	// sigcom_init_receiver();
+	ft_printf(MSG_CONNECTION_ESTABLISHED, __func__, peer_pid);
+	if (sigcom_send_string(str))
+		ft_printf("%s >>> Error while sending string\n", __func__);
 }

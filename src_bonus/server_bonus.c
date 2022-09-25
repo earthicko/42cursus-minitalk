@@ -16,13 +16,27 @@
 
 int	main(void)
 {
+	int	interrupt;
+
 	ft_printf("PID: %d\n", getpid());
-	sigcom_ready_default();
+	sigcom_init();
 	while (1)
 	{
-		print_sigcom_state();
-		ft_printf("main >>> while loop start\n");
-		pause();
+		interrupt = usleep(TIMEOUT_RX_USEC);
+		if (interrupt)
+		{
+			if (g_sigcom.state == STATE_READY)
+				sigcom_action_ready();
+			else if (g_sigcom.state == STATE_RX)
+				sigcom_action_rx();
+			else
+				return (-1);
+		}
+		else if (g_sigcom.state != STATE_READY)
+		{
+			ft_printf(MSG_TIMEOUT_EXCEEDED, __func__, TIMEOUT_RX_USEC);
+			sigcom_setstate_ready();
+		}
 	}
 	return (0);
 }
