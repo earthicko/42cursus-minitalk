@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// contains: malloc, free, write, va_start, va_arg, va_copy, va_end
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stdlib.h>

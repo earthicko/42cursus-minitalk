@@ -1,6 +1,8 @@
 NAME			= minitalk
 BONUS			= 
+
 INC				= -I . -I includes $(LIBFT_INC)
+
 LIBFT		= libft.a
 LIBFT_DIR	= libft
 LIBFT_LIB	= -L libft libft/libft.a
@@ -8,7 +10,8 @@ LIBFT_INC	= -I libft
 
 SRCDIR			= ./src/
 SRCNAME			= \
-				$(SRCDIR)sigcom/sigcom
+				$(SRCDIR)sigcom/sigcom \
+				$(SRCDIR)ft_atoi_if_valid
 
 SRCDIR_BONUS	= ./src_bonus/
 SRCNAME_BONUS	= 

@@ -1,18 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donghyle <donghyle@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/25 12:03:52 by donghyle          #+#    #+#             */
+/*   Updated: 2022/09/25 12:03:53 by donghyle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
+#include "libft.h"
 #include "sigcom.h"
-#include <string.h>
-#include <stdlib.h>
+#include "minitalk.h"
 
 int	main(int argc, char **argv)
 {
 	int		pid;
 	char	*cursor;
 	int		i;
+	int		error;
 
 	if (argc < 3)
 		return (0);
 	sigcom_init();
-	pid = atoi(argv[1]);	// 추후 ft_atoi_if_valid로 에러 처리
+	error = ft_atoi_if_valid(argv[1], &pid);
+	if (error)
+		return (error);
 	i = 2;
 	while (i < argc)
 	{
