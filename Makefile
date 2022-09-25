@@ -1,10 +1,10 @@
 NAME			= minitalk
 BONUS			= 
-INC				= -I . -I includes $(LIBFTPRINTF_INC)
-LIBFTPRINTF		= libftprintf.a
-LIBFTPRINTF_DIR	= libftprintf
-LIBFTPRINTF_LIB	= -L libftprintf libftprintf/libftprintf.a
-LIBFTPRINTF_INC	= -I libftprintf/includes
+INC				= -I . -I includes $(LIBFT_INC)
+LIBFT		= libft.a
+LIBFT_DIR	= libft
+LIBFT_LIB	= -L libft libft/libft.a
+LIBFT_INC	= -I libft
 
 SRCDIR			= ./src/
 SRCNAME			= \
@@ -22,30 +22,33 @@ RM				= rm -f
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
 
-all : $(NAME)
+all : $(NAME) client_test
 
-$(NAME) : $(OBJ) $(LIBFTPRINTF) $(SRCDIR)server.o $(SRCDIR)client.o
-	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR)server.o -o server $(LIBFTPRINTF_LIB)
-	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR)client.o -o client $(LIBFTPRINTF_LIB)
+$(NAME) : $(OBJ) $(LIBFT) $(SRCDIR)server.o $(SRCDIR)client.o
+	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR)server.o -o server $(LIBFT_LIB)
+	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR)client.o -o client $(LIBFT_LIB)
 
-bonus : $(OBJ_BONUS) $(LIBFTPRINTF) $(SRCDIR_BONUS)server.o $(SRCDIR_BONUS)client.o
-	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR_BONUS)server.o -o server $(LIBFTPRINTF_LIB)
-	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR_BONUS)client.o -o client $(LIBFTPRINTF_LIB)
+client_test : $(OBJ) $(LIBFT) client_test.o
+	@$(CC) $(CFLAGS) $(INC) $(OBJ) client_test.o -o client_test $(LIBFT_LIB)
 
-$(LIBFTPRINTF) :
-	make -C $(LIBFTPRINTF_DIR) $(LIBFTPRINTF)
+bonus : $(OBJ_BONUS) $(LIBFT) $(SRCDIR_BONUS)server.o $(SRCDIR_BONUS)client.o
+	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR_BONUS)server.o -o server $(LIBFT_LIB)
+	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR_BONUS)client.o -o client $(LIBFT_LIB)
+
+$(LIBFT) :
+	make -C $(LIBFT_DIR) $(LIBFT)
 
 %.o : %.c
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean :
-	$(RM) $(OBJ) $(SRCDIR)server.o $(SRCDIR)client.o
+	$(RM) $(OBJ) $(SRCDIR)server.o $(SRCDIR)client.o client_test.o
 	$(RM) $(OBJ_BONUS) $(SRCDIR_BONUS)server.o $(SRCDIR_BONUS)client.o
-	make clean -C $(LIBFTPRINTF_DIR)
+	make clean -C $(LIBFT_DIR)
 
 fclean : clean
-	$(RM) server client
-	make fclean -C $(LIBFTPRINTF_DIR)
+	$(RM) server client client_test
+	make fclean -C $(LIBFT_DIR)
 
 re :
 	make fclean
