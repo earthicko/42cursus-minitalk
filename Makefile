@@ -16,7 +16,9 @@ SRCDIR_BONUS	= ./src_bonus/
 SRCNAME_BONUS	= \
 				$(SRCDIR_BONUS)sigcom/sigcom_bonus \
 				$(SRCDIR_BONUS)sigcom/sigcom_ready_bonus \
+				$(SRCDIR_BONUS)sigcom/sigcom_rx_bonus \
 				$(SRCDIR_BONUS)sigcom/sigcom_tx_bonus \
+				$(SRCDIR_BONUS)sigcom/sigcom_tx_sender_bonus \
 				$(SRCDIR_BONUS)sigcom/sigcom_debug
 
 SRCDIR_UTILS	= ./utils/
@@ -25,23 +27,20 @@ SRCNAME_UTILS	= \
 
 SRC				= $(addsuffix .c, $(SRCNAME))
 OBJ				= $(addsuffix .o, $(SRCNAME))
-SRC_BONUS		= $(addsuffix .c, $(SRCNAME_BONUS)))
+SRC_BONUS		= $(addsuffix .c, $(SRCNAME_BONUS))
 OBJ_BONUS		= $(addsuffix .o, $(SRCNAME_BONUS))
-SRC_UTILS		= $(addsuffix .c, $(SRCNAME_UTILS)))
+SRC_UTILS		= $(addsuffix .c, $(SRCNAME_UTILS))
 OBJ_UTILS		= $(addsuffix .o, $(SRCNAME_UTILS))
 
 RM				= rm -f
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
 
-all : $(NAME) client_test
+all : $(NAME)
 
 $(NAME) : $(OBJ) $(OBJ_UTILS) $(LIBFT) $(SRCDIR)server.o $(SRCDIR)client.o
 	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(OBJ_UTILS) $(SRCDIR)server.o -o server $(LIBFT_LIB)
 	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(OBJ_UTILS) $(SRCDIR)client.o -o client $(LIBFT_LIB)
-
-client_test : $(OBJ) $(LIBFT) client_test.o
-	@$(CC) $(CFLAGS) $(INC) $(OBJ) client_test.o -o client_test $(LIBFT_LIB)
 
 bonus : $(OBJ_BONUS) $(OBJ_UTILS) $(LIBFT) $(SRCDIR_BONUS)server_bonus.o $(SRCDIR_BONUS)client_bonus.o
 	@$(CC) $(CFLAGS) $(INC) $(OBJ_BONUS) $(OBJ_UTILS) $(SRCDIR_BONUS)server_bonus.o -o server $(LIBFT_LIB)
@@ -54,7 +53,6 @@ $(LIBFT) :
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean :
-	$(RM) client_test.o
 	$(RM) $(OBJ_UTILS)
 	$(RM) $(OBJ) $(SRCDIR)server.o $(SRCDIR)client.o
 	$(RM) $(OBJ_BONUS) $(SRCDIR_BONUS)server_bonus.o $(SRCDIR_BONUS)client_bonus.o
