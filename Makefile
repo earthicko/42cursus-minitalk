@@ -14,7 +14,10 @@ SRCNAME			= \
 
 SRCDIR_BONUS	= ./src_bonus/
 SRCNAME_BONUS	= \
-				$(SRCDIR_BONUS)sigcom/sigcom_bonus
+				$(SRCDIR_BONUS)sigcom/sigcom_bonus \
+				$(SRCDIR_BONUS)sigcom/sigcom_ready_bonus \
+				$(SRCDIR_BONUS)sigcom/sigcom_tx_bonus \
+				$(SRCDIR_BONUS)sigcom/sigcom_debug
 
 SRCDIR_UTILS	= ./utils/
 SRCNAME_UTILS	= \

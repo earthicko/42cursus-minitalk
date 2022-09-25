@@ -11,14 +11,18 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "sigcom.h"
+#include "sigcom_bonus.h"
 #include "libft.h"
 
 int	main(void)
 {
 	ft_printf("PID: %d\n", getpid());
-	sigcom_init();
+	sigcom_ready_default();
 	while (1)
+	{
+		print_sigcom_state();
+		ft_printf("main >>> while loop start\n");
 		pause();
+	}
 	return (0);
 }

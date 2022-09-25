@@ -15,29 +15,44 @@
 #include "sigcom_bonus.h"
 #include "ft_atoi_if_valid.h"
 
+// int	main(int argc, char **argv)
+// {
+// 	int		pid;
+// 	char	*cursor;
+// 	int		i;
+// 	int		error;
+
+// 	if (argc < 3)
+// 		return (0);
+// 	sigcom_init();
+// 	error = ft_atoi_if_valid(argv[1], &pid);
+// 	if (error)
+// 		return (error);
+// 	i = 2;
+// 	while (i < argc)
+// 	{
+// 		cursor = argv[i];
+// 		while (*cursor)
+// 		{
+// 			ft_printf("sending byte [%d] [%#x]\n", *cursor, *cursor);
+// 			sigcom_send(*cursor, pid);
+// 			cursor++;
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
 int	main(int argc, char **argv)
 {
 	int		pid;
-	char	*cursor;
-	int		i;
 	int		error;
 
-	if (argc < 3)
+	if (argc < 2)
 		return (0);
-	sigcom_init();
 	error = ft_atoi_if_valid(argv[1], &pid);
 	if (error)
 		return (error);
-	i = 2;
-	while (i < argc)
-	{
-		cursor = argv[i];
-		while (*cursor)
-		{
-			sigcom_send(*cursor, pid);
-			cursor++;
-		}
-		i++;
-	}
+	sigcom_send_byte(0x05, pid);
 	return (0);
 }
