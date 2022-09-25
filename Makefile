@@ -1,25 +1,31 @@
 NAME			= minitalk
 BONUS			= 
 
-INC				= -I . -I includes $(LIBFT_INC)
+INC				= -I . -I includes -I includes_bonus -I includes_utils $(LIBFT_INC)
 
-LIBFT		= libft.a
-LIBFT_DIR	= libft
-LIBFT_LIB	= -L libft libft/libft.a
-LIBFT_INC	= -I libft
+LIBFT			= libft.a
+LIBFT_DIR		= libft
+LIBFT_LIB		= -L libft libft/libft.a
+LIBFT_INC		= -I libft
 
 SRCDIR			= ./src/
 SRCNAME			= \
-				$(SRCDIR)sigcom/sigcom \
-				$(SRCDIR)ft_atoi_if_valid
+				$(SRCDIR)sigcom/sigcom
 
 SRCDIR_BONUS	= ./src_bonus/
-SRCNAME_BONUS	= 
+SRCNAME_BONUS	= \
+				$(SRCDIR_BONUS)sigcom/sigcom_bonus
+
+SRCDIR_UTILS	= ./utils/
+SRCNAME_UTILS	= \
+				$(SRCDIR_UTILS)ft_atoi_if_valid
 
 SRC				= $(addsuffix .c, $(SRCNAME))
 OBJ				= $(addsuffix .o, $(SRCNAME))
 SRC_BONUS		= $(addsuffix .c, $(SRCNAME_BONUS)))
 OBJ_BONUS		= $(addsuffix .o, $(SRCNAME_BONUS))
+SRC_UTILS		= $(addsuffix .c, $(SRCNAME_UTILS)))
+OBJ_UTILS		= $(addsuffix .o, $(SRCNAME_UTILS))
 
 RM				= rm -f
 CC				= gcc
@@ -27,16 +33,16 @@ CFLAGS			= -Wall -Wextra -Werror
 
 all : $(NAME) client_test
 
-$(NAME) : $(OBJ) $(LIBFT) $(SRCDIR)server.o $(SRCDIR)client.o
-	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR)server.o -o server $(LIBFT_LIB)
-	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR)client.o -o client $(LIBFT_LIB)
+$(NAME) : $(OBJ) $(OBJ_UTILS) $(LIBFT) $(SRCDIR)server.o $(SRCDIR)client.o
+	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(OBJ_UTILS) $(SRCDIR)server.o -o server $(LIBFT_LIB)
+	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(OBJ_UTILS) $(SRCDIR)client.o -o client $(LIBFT_LIB)
 
 client_test : $(OBJ) $(LIBFT) client_test.o
 	@$(CC) $(CFLAGS) $(INC) $(OBJ) client_test.o -o client_test $(LIBFT_LIB)
 
-bonus : $(OBJ_BONUS) $(LIBFT) $(SRCDIR_BONUS)server.o $(SRCDIR_BONUS)client.o
-	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR_BONUS)server.o -o server $(LIBFT_LIB)
-	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(SRCDIR_BONUS)client.o -o client $(LIBFT_LIB)
+bonus : $(OBJ_BONUS) $(OBJ_UTILS) $(LIBFT) $(SRCDIR_BONUS)server_bonus.o $(SRCDIR_BONUS)client_bonus.o
+	@$(CC) $(CFLAGS) $(INC) $(OBJ_BONUS) $(OBJ_UTILS) $(SRCDIR_BONUS)server_bonus.o -o server $(LIBFT_LIB)
+	@$(CC) $(CFLAGS) $(INC) $(OBJ_BONUS) $(OBJ_UTILS) $(SRCDIR_BONUS)client_bonus.o -o client $(LIBFT_LIB)
 
 $(LIBFT) :
 	make -C $(LIBFT_DIR) $(LIBFT)
@@ -45,12 +51,15 @@ $(LIBFT) :
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean :
-	$(RM) $(OBJ) $(SRCDIR)server.o $(SRCDIR)client.o client_test.o
-	$(RM) $(OBJ_BONUS) $(SRCDIR_BONUS)server.o $(SRCDIR_BONUS)client.o
+	$(RM) client_test.o
+	$(RM) $(OBJ_UTILS)
+	$(RM) $(OBJ) $(SRCDIR)server.o $(SRCDIR)client.o
+	$(RM) $(OBJ_BONUS) $(SRCDIR_BONUS)server_bonus.o $(SRCDIR_BONUS)client_bonus.o
 	make clean -C $(LIBFT_DIR)
 
 fclean : clean
-	$(RM) server client client_test
+	$(RM) client_test
+	$(RM) server client
 	make fclean -C $(LIBFT_DIR)
 
 re :
