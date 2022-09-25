@@ -18,8 +18,7 @@ SRCNAME_BONUS	= \
 				$(SRCDIR_BONUS)sigcom/sigcom_ready_bonus \
 				$(SRCDIR_BONUS)sigcom/sigcom_rx_bonus \
 				$(SRCDIR_BONUS)sigcom/sigcom_tx_bonus \
-				$(SRCDIR_BONUS)sigcom/sigcom_tx_sender_bonus \
-				$(SRCDIR_BONUS)sigcom/sigcom_debug
+				$(SRCDIR_BONUS)sigcom/sigcom_tx_sender_bonus
 
 SRCDIR_UTILS	= ./utils/
 SRCNAME_UTILS	= \
@@ -59,7 +58,6 @@ clean :
 	make clean -C $(LIBFT_DIR)
 
 fclean : clean
-	$(RM) client_test
 	$(RM) server client
 	make fclean -C $(LIBFT_DIR)
 
