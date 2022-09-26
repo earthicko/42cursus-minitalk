@@ -18,7 +18,7 @@
 
 # define TIMEOUT_RX_USEC 2000000
 # define TIMEOUT_TX_USEC 1000000
-# define DELAY_USEC 100
+# define DELAY_USEC 30
 # define MAX_RETRY 5
 
 # define EOT 0x04
