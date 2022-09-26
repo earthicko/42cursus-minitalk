@@ -13,7 +13,7 @@
 #ifndef SIGCOM_H
 # define SIGCOM_H
 # define TIMEOUT_USEC 1000000
-# define DELAY_USEC 30
+# define DELAY_USEC 100
 
 typedef struct s_sigcom
 {
