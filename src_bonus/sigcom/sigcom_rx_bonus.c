@@ -16,7 +16,7 @@
 
 static void	write_bit(void)
 {
-	if (g_sigcom.sig == SIGUSR1)
+	if (g_sigcom.rx_sig == SIGUSR1)
 	{
 		g_sigcom.mask = ~g_sigcom.mask;
 		g_sigcom.buffer &= g_sigcom.mask;
@@ -29,7 +29,7 @@ static void	write_bit(void)
 
 int	sigcom_action_rx(void)
 {
-	if (g_sigcom.si_pid != g_sigcom.peer_pid)
+	if (g_sigcom.rx_pid != g_sigcom.peer_pid)
 		return (-1);
 	write_bit();
 	if (g_sigcom.mask == 0)
@@ -37,7 +37,7 @@ int	sigcom_action_rx(void)
 		if (g_sigcom.buffer == EOT)
 		{
 			usleep(DELAY_USEC);
-			kill(g_sigcom.si_pid, SIGUSR1);
+			kill(g_sigcom.rx_pid, SIGUSR1);
 			sigcom_setstate_ready();
 			return (0);
 		}
@@ -45,7 +45,7 @@ int	sigcom_action_rx(void)
 		g_sigcom.mask = 1;
 	}
 	usleep(DELAY_USEC);
-	kill(g_sigcom.si_pid, SIGUSR1);
+	kill(g_sigcom.rx_pid, SIGUSR1);
 	return (0);
 }
 

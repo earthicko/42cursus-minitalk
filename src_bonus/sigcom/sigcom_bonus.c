@@ -21,8 +21,8 @@ void	sigcom_sigaction(int sig, siginfo_t *info, void *uap)
 	(void) uap;
 	if (sig == 0)
 		return ;
-	g_sigcom.sig = sig;
-	g_sigcom.si_pid = info->si_pid;
+	g_sigcom.rx_sig = sig;
+	g_sigcom.rx_pid = info->si_pid;
 }
 
 void	sigcom_init(void)

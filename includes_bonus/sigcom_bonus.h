@@ -38,8 +38,8 @@ typedef struct s_sigcom
 	char	mask;
 	pid_t	peer_pid;
 	int		state;
-	int		sig;
-	pid_t	si_pid;
+	int		rx_sig;
+	pid_t	rx_pid;
 }	t_sigcom;
 
 extern t_sigcom	g_sigcom;

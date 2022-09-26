@@ -18,15 +18,15 @@ int	sigcom_action_ready(void)
 {
 	int	error;
 
-	if (g_sigcom.si_pid == 0)
+	if (g_sigcom.rx_pid == 0)
 		return (-1);
-	if (g_sigcom.sig == SIGUSR1)
+	if (g_sigcom.rx_sig == SIGUSR1)
 	{
 		usleep(DELAY_USEC);
-		error = kill(g_sigcom.si_pid, SIGUSR2);
+		error = kill(g_sigcom.rx_pid, SIGUSR2);
 		if (error)
 			return (-1);
-		sigcom_setstate_rx(g_sigcom.si_pid);
+		sigcom_setstate_rx(g_sigcom.rx_pid);
 	}
 	return (0);
 }
