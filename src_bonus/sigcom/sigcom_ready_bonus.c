@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "libft.h"
 #include "sigcom_bonus.h"
 
 int	sigcom_action_ready(void)

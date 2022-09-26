@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "sigcom_bonus.h"
-#include "libft.h"
 
 static int	handle_error_kill(char *func)
 {

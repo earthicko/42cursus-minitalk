@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "sigcom.h"
-#include "libft.h"
 
 int	main(void)
 {

@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "sigcom_bonus.h"
-#include "libft.h"
 
 static int	try_connecting(pid_t peer_pid, int n_retry)
 {

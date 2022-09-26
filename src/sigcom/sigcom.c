@@ -10,14 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <unistd.h>
 #include "sigcom.h"
-#include "libft.h"
 
 t_sigcom	g_sigcom;
 
-void	sigcom_receive_action(int sig, siginfo_t *info, void *uap)
+void	sigcom_action_receive(int sig, siginfo_t *info, void *uap)
 {
 	(void) uap;
 	g_sigcom.state = STATE_RX;
@@ -40,11 +37,11 @@ void	sigcom_receive_action(int sig, siginfo_t *info, void *uap)
 	}
 }
 
-void	sigcom_init_receiver(void)
+void	sigcom_setstate_receive(void)
 {
 	struct sigaction	usr_act;
 
-	usr_act.sa_sigaction = sigcom_receive_action;
+	usr_act.sa_sigaction = sigcom_action_receive;
 	sigemptyset(&usr_act.sa_mask);
 	usr_act.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &usr_act, NULL);
@@ -75,7 +72,7 @@ void	sigcom_send_byte(char byte, pid_t pid)
 
 void	sigcom_init(void)
 {
-	sigcom_init_receiver();
+	sigcom_setstate_receive();
 	g_sigcom.buffer = 0;
 	g_sigcom.mask = 1;
 	g_sigcom.state = STATE_READY;

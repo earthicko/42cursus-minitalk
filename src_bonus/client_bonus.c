@@ -10,10 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "libft.h"
 #include "sigcom_bonus.h"
-#include "ft_atoi_if_valid.h"
+#include "libft_extension.h"
 
 int	main(int argc, char **argv)
 {

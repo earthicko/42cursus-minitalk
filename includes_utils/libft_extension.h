@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi_if_valid.h                                 :+:      :+:    :+:   */
+/*   libft_extension.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donghyle <donghyle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ATOI_IF_VALID_H
-# define FT_ATOI_IF_VALID_H
+#ifndef LIBFT_EXTENSION_H
+# define LIBFT_EXTENSION_H
+# include "libft.h"
 
 int	ft_atoi_if_valid(char *str, int *ret);
 #endif

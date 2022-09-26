@@ -11,8 +11,10 @@
 /* ************************************************************************** */
 
 #ifndef SIGCOM_BONUS_H
-# include <signal.h>
 # define SIGCOM_BONUS_H
+# include "libft.h"
+# include <signal.h>
+# include <unistd.h>
 
 # define TIMEOUT_RX_USEC 2000000
 # define TIMEOUT_TX_USEC 1000000

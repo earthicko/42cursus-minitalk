@@ -12,6 +12,9 @@
 
 #ifndef SIGCOM_H
 # define SIGCOM_H
+# include "libft.h"
+# include <signal.h>
+# include <unistd.h>
 # define TIMEOUT_USEC 1000000
 # define DELAY_USEC 100
 
@@ -32,7 +35,7 @@ enum	e_state
 extern t_sigcom	g_sigcom;
 
 void	sigcom_init(void);
-void	sigcom_init_receiver(void);
+void	sigcom_setstate_receive(void);
 void	sigcom_init_sender(void);
-void	sigcom_send(char byte, pid_t pid);
+void	sigcom_send_byte(char byte, pid_t pid);
 #endif

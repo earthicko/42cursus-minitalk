@@ -10,10 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "libft.h"
+#include "libft_extension.h"
 #include "sigcom_bonus.h"
-#include "ft_atoi_if_valid.h"
 #include <stdlib.h>
 
 static char	*build_str(int n_chars)

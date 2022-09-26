@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "sigcom_bonus.h"
-#include "libft.h"
 
 t_sigcom	g_sigcom;
 

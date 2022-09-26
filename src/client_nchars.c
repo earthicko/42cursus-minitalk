@@ -10,10 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "libft.h"
+#include "libft_extension.h"
 #include "sigcom.h"
-#include "ft_atoi_if_valid.h"
 
 static char	*build_str(int n_chars)
 {
@@ -54,7 +52,7 @@ int	main(int argc, char **argv)
 	cursor = str;
 	while (*cursor)
 	{
-		sigcom_send(*cursor, pid);
+		sigcom_send_byte(*cursor, pid);
 		cursor++;
 	}
 	return (0);
