@@ -37,13 +37,15 @@ CFLAGS			= -Wall -Wextra -Werror
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) $(OBJ_UTILS) $(LIBFT) $(SRCDIR)server.o $(SRCDIR)client.o
+$(NAME) : $(OBJ) $(OBJ_UTILS) $(LIBFT) $(SRCDIR)server.o $(SRCDIR)client.o $(SRCDIR)client_nchars.o
 	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(OBJ_UTILS) $(SRCDIR)server.o -o server $(LIBFT_LIB)
 	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(OBJ_UTILS) $(SRCDIR)client.o -o client $(LIBFT_LIB)
+	@$(CC) $(CFLAGS) $(INC) $(OBJ) $(OBJ_UTILS) $(SRCDIR)client_nchars.o -o client_nchars $(LIBFT_LIB)
 
-bonus : $(OBJ_BONUS) $(OBJ_UTILS) $(LIBFT) $(SRCDIR_BONUS)server_bonus.o $(SRCDIR_BONUS)client_bonus.o
+bonus : $(OBJ_BONUS) $(OBJ_UTILS) $(LIBFT) $(SRCDIR_BONUS)server_bonus.o $(SRCDIR_BONUS)client_bonus.o $(SRCDIR_BONUS)client_nchars_bonus.o
 	@$(CC) $(CFLAGS) $(INC) $(OBJ_BONUS) $(OBJ_UTILS) $(SRCDIR_BONUS)server_bonus.o -o server $(LIBFT_LIB)
 	@$(CC) $(CFLAGS) $(INC) $(OBJ_BONUS) $(OBJ_UTILS) $(SRCDIR_BONUS)client_bonus.o -o client $(LIBFT_LIB)
+	@$(CC) $(CFLAGS) $(INC) $(OBJ_BONUS) $(OBJ_UTILS) $(SRCDIR_BONUS)client_nchars_bonus.o -o client_nchars $(LIBFT_LIB)
 
 $(LIBFT) :
 	make -C $(LIBFT_DIR) $(LIBFT)
@@ -53,12 +55,12 @@ $(LIBFT) :
 
 clean :
 	$(RM) $(OBJ_UTILS)
-	$(RM) $(OBJ) $(SRCDIR)server.o $(SRCDIR)client.o
-	$(RM) $(OBJ_BONUS) $(SRCDIR_BONUS)server_bonus.o $(SRCDIR_BONUS)client_bonus.o
+	$(RM) $(OBJ) $(SRCDIR)server.o $(SRCDIR)client.o $(SRCDIR)client_nchars.o
+	$(RM) $(OBJ_BONUS) $(SRCDIR_BONUS)server_bonus.o $(SRCDIR_BONUS)client_bonus.o $(SRCDIR_BONUS)client_nchars_bonus.o
 	make clean -C $(LIBFT_DIR)
 
 fclean : clean
-	$(RM) server client
+	$(RM) server client client_nchars
 	make fclean -C $(LIBFT_DIR)
 
 re :
