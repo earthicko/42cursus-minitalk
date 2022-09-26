@@ -20,6 +20,7 @@ t_sigcom	g_sigcom;
 void	sigcom_receive_action(int sig, siginfo_t *info, void *uap)
 {
 	(void) uap;
+	g_sigcom.state = STATE_RX;
 	if (info->si_pid == 0)
 		return ;
 	if (sig == SIGUSR1)
@@ -35,6 +36,7 @@ void	sigcom_receive_action(int sig, siginfo_t *info, void *uap)
 	{
 		write(STDOUT_FILENO, &g_sigcom.buffer, 1);
 		g_sigcom.mask = 1;
+		g_sigcom.state = STATE_READY;
 	}
 }
 
@@ -76,4 +78,5 @@ void	sigcom_init(void)
 	sigcom_init_receiver();
 	g_sigcom.buffer = 0;
 	g_sigcom.mask = 1;
+	g_sigcom.state = STATE_READY;
 }

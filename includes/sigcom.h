@@ -19,7 +19,15 @@ typedef struct s_sigcom
 {
 	char	buffer;
 	char	mask;
+	int		state;
 }	t_sigcom;
+
+enum	e_state
+{
+	STATE_READY = 0,
+	STATE_RX,
+	STATE_TX
+};
 
 extern t_sigcom	g_sigcom;
 

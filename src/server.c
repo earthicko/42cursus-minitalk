@@ -16,9 +16,18 @@
 
 int	main(void)
 {
+	int	interrupted;
+
 	ft_printf("PID: %d\n", getpid());
 	sigcom_init();
 	while (1)
-		pause();
+	{
+		interrupted = usleep(TIMEOUT_USEC);
+		if (!interrupted && g_sigcom.state != STATE_READY)
+		{
+			ft_printf("Timeout (%dus) while receiving\n", TIMEOUT_USEC);
+			sigcom_init();
+		}
+	}
 	return (0);
 }
